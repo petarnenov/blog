@@ -28,5 +28,5 @@
     "@types/express": "^4.17.13",
     "ts-node": "^10.4.0"
   },
-  "gitHead": "6e9d6d8faa13ecf583fd1a8586a6c057023eead5"
+  "gitHead": "22dc45b80333f1a5b3700e044c962872f546af2e"
 }
