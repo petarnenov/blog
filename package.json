@@ -7,6 +7,5 @@
     "build": "lerna run build --parallel",
     "start": "lerna run start --parallel",
     "format": "lerna run format --parallel"
-  },
-  "license": "ISC"
+  }  
 }
