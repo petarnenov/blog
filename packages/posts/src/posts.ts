@@ -23,7 +23,7 @@ app.post("/posts", (req, res) => {
   const { title } = req.body as CreatePost;
   const id = randomBytes(10).toString("hex");
   posts[id] = { title };
-  res.end();
+  res.send(posts[id]);
 });
 
 app.listen(3021, () => {
