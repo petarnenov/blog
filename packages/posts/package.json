@@ -1,6 +1,6 @@
 {
   "name": "posts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Posts service",
   "author": "“Petar <“petar.petrov@egt-interactive.com”>",
   "homepage": "",
@@ -17,7 +17,7 @@
   "scripts": {
     "build": "tsc",
     "start": "nodemon --watch './**/*.ts' --exec 'ts-node' src/posts.ts",
-    "format":"prettier -w src"
+    "format": "prettier -w src"
   },
   "dependencies": {
     "axios": "^0.24.0",
