@@ -1,8 +1,18 @@
 import { useState } from "react";
-import { Posts, savePost, SavePostData, getAllPosts } from "../api/posts";
+import {
+  Posts,
+  savePost,
+  SavePostData,
+  getAllPosts,
+  saveComment,
+  SaveCommentData,
+  getAllCommentsByPostId,
+  GetAllCommentsByPostId,
+  SavedPostData,
+} from "../api";
 
 export const useSavePost = () => {
-  const [data, setData] = useState<SavePostData>({} as SavePostData);
+  const [data, setData] = useState<SavedPostData>({} as SavedPostData);
   const apiSavePost = async (post: SavePostData) => {
     const saveResult = await savePost(post);
     setData(saveResult);
@@ -17,4 +27,22 @@ export const useGetAllPosts = () => {
     setPosts(getResult);
   };
   return { posts, apiGetAllPosts };
+};
+
+export const useSaveComment = () => {
+  const [data, setComments] = useState([] as SaveCommentData[]);
+  const apiSaveComments = async (data: SaveCommentData) => {
+    const saveResults = await saveComment(data);
+    setComments(saveResults);
+  };
+  return { data, setComments, apiSaveComments };
+};
+
+export const useGetAllCommentsByID = () => {
+  const [comments, setComments] = useState([] as SaveCommentData[]);
+  const apiGetAllCommentsByPostId = async (data: GetAllCommentsByPostId) => {
+    const getResult = await getAllCommentsByPostId(data);
+    setComments(getResult);
+  };
+  return { comments, apiGetAllCommentsByPostId };
 };

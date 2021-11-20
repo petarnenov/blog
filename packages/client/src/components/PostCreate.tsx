@@ -4,9 +4,9 @@ import { useSavePost } from "../hooks";
 
 interface Props {}
 
-const PostCreate: React.FC<Props> = ({}) => {
+const PostCreate: React.FC<Props> = () => {
   const [title, setTitle] = useState("");
-  const { data, apiSavePost } = useSavePost();
+  const { apiSavePost } = useSavePost();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

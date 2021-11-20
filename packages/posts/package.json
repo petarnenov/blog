@@ -16,7 +16,8 @@
   ],
   "scripts": {
     "build": "tsc",
-    "start": "nodemon --watch './**/*.ts' --exec 'ts-node' src/posts.ts",
+    "debug": "nodemon src/posts.ts",
+    "start": "ts-node src/posts.ts",
     "format": "prettier -w src"
   },
   "dependencies": {
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "nodemon": "^2.0.15",
     "ts-node": "^10.4.0"
   },
   "gitHead": "22dc45b80333f1a5b3700e044c962872f546af2e"
