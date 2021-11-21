@@ -17,7 +17,9 @@
     "build": "tsc",
     "debug": "nodemon src/comments.ts",
     "start": "ts-node src/comments.ts",
-    "format": "prettier -w src"
+    "format": "prettier -w src",
+    "docker:build": "docker build -t petarnenov/blog-comments:latest .",
+    "docker:push": "docker push petarnenov/blog-comments:latest"
   },
   "dependencies": {
     "axios": "^0.24.0",
