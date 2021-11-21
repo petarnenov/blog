@@ -27,6 +27,6 @@ app.post('/posts', (req, res) => {
 });
 
 app.listen(3021, () => {
-  console.log('v21');
+  console.log('v22');
   console.log('Service posts start and listening on port 3021');
 });
