@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import axios from "axios";
 
 const app = express();
 
@@ -13,15 +14,22 @@ app.get("/moderation", (req, res) => {
 app.post("/moderation", (req, res) => {
   const event = req.body;
 
-  fetch("http://localhost:3021/moderation", {
+  axios("http://localhost:3021/moderation", {
     method: "POST",
-    body: JSON.stringify(event),
+    data: event,
   });
-  fetch("http://localhost:3022/moderation", {
+  axios("http://localhost:3022/moderation", {
     method: "POST",
-    body: JSON.stringify(event),
+    data: event,
   });
 
+  res.status(200);
+  res.end();
+});
+
+app.post("/events", (req, res) => {
+  const event = req.body;
+  console.log(event);
   res.status(200);
   res.end();
 });

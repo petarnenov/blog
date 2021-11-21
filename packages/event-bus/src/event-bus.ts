@@ -1,5 +1,13 @@
 import express from "express";
 import cors from "cors";
+import axios from "axios";
+
+export interface EventBusEvent {
+  type: string;
+  data: string;
+}
+
+const events: EventBusEvent[] = [];
 
 const app = express();
 
@@ -7,27 +15,28 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/events", (req, res) => {
-  res.send("Hi there from events");
+  res.send(events);
 });
 
-app.post("/events", (req, res) => {
+app.post("/events", async (req, res) => {
   const event = req.body;
+  events.push(event);
 
-  fetch("http://localhost:3021/events", {
+  await axios("http://localhost:3021/events", {
     method: "POST",
-    body: JSON.stringify(event),
+    data: event,
   });
-  fetch("http://localhost:3022/events", {
+  await axios("http://localhost:3022/events", {
     method: "POST",
-    body: JSON.stringify(event),
+    data: event,
   });
-  fetch("http://localhost:3023/events", {
+  await axios("http://localhost:3023/events", {
     method: "POST",
-    body: JSON.stringify(event),
+    data: event,
   });
-  fetch("http://localhost:3024/events", {
+  await axios("http://localhost:3024/events", {
     method: "POST",
-    body: JSON.stringify(event),
+    data: event,
   });
 
   res.status(200);

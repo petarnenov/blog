@@ -1,8 +1,10 @@
 import express from "express";
 import cors from "cors";
+import axios from "axios";
 import { randomBytes } from "crypto";
 
-interface CreatePost {
+export interface CreatePost {
+  id: string;
   title: string;
 }
 interface Posts {
@@ -15,15 +17,28 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/posts", (req, res) => {
-  res.send(posts);
-});
-
-app.post("/posts", (req, res) => {
+app.post("/posts", async (req, res) => {
   const { title } = req.body as CreatePost;
   const id = randomBytes(10).toString("hex");
-  posts[id] = { title };
+  posts[id] = { id, title };
+
+  await axios("http://localhost:3020/events", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    data: {
+      type: "PostCreated",
+      data: posts[id],
+    },
+  });
+
   res.status(201).send(posts[id]);
+});
+
+app.post("/events", (req, res) => {
+  const event = req.body;
+  console.log(event);
+  res.status(200);
+  res.end();
 });
 
 app.listen(3021, () => {

@@ -31,10 +31,12 @@
   "homepage": "https://github.com/petarnenov/blog#readme",
   "gitHead": "1fc1eb008c48623c346816efffec889a36639d81",
   "dependencies": {
+    "axios": "^0.24.0",
     "cors": "^2.8.5",
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "nodemon": "^2.0.15",

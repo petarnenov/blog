@@ -10,7 +10,6 @@ const PostList: React.FC<Props> = () => {
 
   useEffect(() => {
     apiGetAllPosts();
-    console.log("call useEffect");
   }, []);
 
   const allPosts = Object.entries(posts).map((entry) => (
@@ -23,7 +22,7 @@ const PostList: React.FC<Props> = () => {
         }}
       >
         <h3>{entry[1].title}</h3>
-        <CommentCreate postId={entry[0]} />
+        <CommentCreate postId={entry[0]} comments={entry[1].comments} />
       </div>
     </li>
   ));

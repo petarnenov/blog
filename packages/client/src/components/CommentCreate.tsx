@@ -1,19 +1,15 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { useGetAllCommentsByID, useSaveComment } from "../hooks";
+import React, { ChangeEvent, useState } from "react";
+import { SaveCommentData } from "../api";
+import { useSaveComment } from "../hooks";
 
 interface Props {
+  comments: SaveCommentData[];
   postId: string;
 }
 
-const CommentCreate: React.FC<Props> = ({ postId }) => {
+const CommentCreate: React.FC<Props> = ({ comments, postId }) => {
   const [comment, setComment] = useState("");
-  const { data, apiSaveComments } = useSaveComment();
-  const { comments, apiGetAllCommentsByPostId } = useGetAllCommentsByID();
-
-  useEffect(() => {
-    apiGetAllCommentsByPostId({ id: postId });
-    console.log("call useEffect");
-  }, [data]);
+  const { apiSaveComments } = useSaveComment();
 
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
@@ -23,8 +19,8 @@ const CommentCreate: React.FC<Props> = ({ postId }) => {
   const saveHandler = () => {
     if (!comment.trim()) return;
     const data = {
-      id: postId,
       content: comment,
+      id: postId,
     };
     apiSaveComments(data);
     setComment("");

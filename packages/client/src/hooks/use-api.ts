@@ -6,8 +6,6 @@ import {
   getAllPosts,
   saveComment,
   SaveCommentData,
-  getAllCommentsByPostId,
-  GetAllCommentsByPostId,
   SavedPostData,
 } from "../api";
 
@@ -36,13 +34,4 @@ export const useSaveComment = () => {
     setComments(saveResults);
   };
   return { data, setComments, apiSaveComments };
-};
-
-export const useGetAllCommentsByID = () => {
-  const [comments, setComments] = useState([] as SaveCommentData[]);
-  const apiGetAllCommentsByPostId = async (data: GetAllCommentsByPostId) => {
-    const getResult = await getAllCommentsByPostId(data);
-    setComments(getResult);
-  };
-  return { comments, apiGetAllCommentsByPostId };
 };
