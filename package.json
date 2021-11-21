@@ -8,7 +8,7 @@
     "build": "lerna run build --parallel",
     "start": "lerna run start --parallel",
     "format": "lerna run format --parallel",
-    "docker": "npm run docker:build && npm run docker:push",
+    "docker": "lerna publish && npm run docker:build && npm run docker:push",
     "docker:build": "lerna run docker:build --parallel",
     "docker:push": "lerna run docker:push --parallel"
   }
