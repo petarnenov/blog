@@ -46,3 +46,28 @@ app.post("/events", async (req, res) => {
 const server = app.listen(3020, () => {
   console.log("Events Bus start listening on port 3020");
 });
+
+export interface PostCreatedEvent {
+  type: "PostCreated";
+  data: PostCreatedData;
+}
+
+export interface CommentCreatedEvent {
+  type: "CommentCreated";
+  data: [];
+}
+
+export interface CommentUpdatesEvent {
+  type: "CommentUpdated";
+  data: {};
+}
+
+export interface CommentModeratedEvent {
+  type: "CommentModerated";
+  data: {};
+}
+
+export interface PostCreatedData {
+  id: string;
+  title: string;
+}

@@ -1,35 +1,42 @@
 import express from "express";
 import cors from "cors";
 import axios from "axios";
+import { CommentCreatedEvent, PostCreatedEvent } from "../../query/src/query";
+
+export interface CommentModeratedEvent {
+  type: "CommentModerated";
+  data: {
+    id: string;
+    postId: string;
+    content: string;
+    status: "pending" | "approved" | "rejected";
+  };
+}
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.get("/moderation", (req, res) => {
-  res.send("Hi there from moderation");
-});
+app.post("/events", async (req, res) => {
+  const event: CommentCreatedEvent | PostCreatedEvent = req.body;
 
-app.post("/moderation", (req, res) => {
-  const event = req.body;
+  if (event.type === "CommentCreated") {
+    event.data.content.toLocaleLowerCase().match(/orange/g)
+      ? (event.data.status = "rejected")
+      : (event.data.status = "approved");
+    await axios("http://localhost:3020/events", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        type: "CommentModerated",
+        data: event.data,
+      },
+    });
+  }
 
-  axios("http://localhost:3021/moderation", {
-    method: "POST",
-    data: event,
-  });
-  axios("http://localhost:3022/moderation", {
-    method: "POST",
-    data: event,
-  });
-
-  res.status(200);
-  res.end();
-});
-
-app.post("/events", (req, res) => {
-  const event = req.body;
-  console.log(event);
   res.status(200);
   res.end();
 });

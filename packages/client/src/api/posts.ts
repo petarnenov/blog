@@ -16,6 +16,7 @@ export interface Posts {
       id: string;
       content: string;
       postId: string;
+      status: "pending" | "approved" | "rejected";
     }[];
   };
 }

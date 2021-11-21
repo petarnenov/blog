@@ -3,6 +3,7 @@ export const commentServiceURL = "http://localhost:3022/posts";
 export interface SaveCommentData {
   id: string;
   content: string;
+  status: "pending" | "approved" | "rejected";
 }
 
 export interface GetAllCommentsByPostId {

@@ -18,9 +18,10 @@ const CommentCreate: React.FC<Props> = ({ comments, postId }) => {
 
   const saveHandler = () => {
     if (!comment.trim()) return;
-    const data = {
+    const data: SaveCommentData = {
       content: comment,
       id: postId,
+      status: "pending",
     };
     apiSaveComments(data);
     setComment("");
@@ -28,7 +29,15 @@ const CommentCreate: React.FC<Props> = ({ comments, postId }) => {
 
   const existingComments = comments
     .reverse()
-    .map((comment) => <li key={comment.id}>{comment.content}</li>);
+    .map((comment) => (
+      <li key={comment.id}>
+        {comment.status === "pending"
+          ? "Waiting moderation"
+          : comment.status === "rejected"
+          ? "Comment forbidden"
+          : comment.content}
+      </li>
+    ));
 
   return (
     <div className="comment-create">

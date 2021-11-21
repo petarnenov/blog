@@ -6,6 +6,7 @@
   "homepage": "https://github.com/petarnenov/blog#readme",
   "license": "ISC",
   "main": "lib/event-bus.js",
+  "types": "lib/events.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"

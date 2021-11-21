@@ -11,6 +11,11 @@ interface Posts {
   [key: string]: CreatePost;
 }
 
+export interface PostCreatedEvent {
+  type: "PostCreated";
+  data: CreatePost;
+}
+
 const posts: Posts = {};
 
 const app = express();
@@ -36,12 +41,10 @@ app.post("/posts", async (req, res) => {
 
 app.post("/events", (req, res) => {
   const event = req.body;
-  console.log(event);
   res.status(200);
   res.end();
 });
 
 app.listen(3021, () => {
-  console.log("v22");
   console.log("Service posts start and listening on port 3021");
 });

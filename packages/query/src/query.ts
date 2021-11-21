@@ -2,7 +2,10 @@ import express from "express";
 import cors from "cors";
 
 export interface Comment {
-  [key: string]: string;
+  id: string;
+  postId: string;
+  content: string;
+  status: "pending" | "approved" | "rejected";
 }
 export interface Post {
   [key: string]: {
@@ -23,6 +26,26 @@ export interface CommentCreatedEvent {
     id: string;
     content: string;
     postId: string;
+    status: "pending" | "approved" | "rejected";
+  };
+}
+export interface CommentUpdatedEvent {
+  type: "CommentUpdated";
+  data: {
+    id: string;
+    content: string;
+    postId: string;
+    status: "pending" | "approved" | "rejected";
+  };
+}
+
+export interface CommentModeratedEvent {
+  type: "CommentModerated";
+  data: {
+    id: string;
+    content: string;
+    postId: string;
+    status: "pending" | "approved" | "rejected";
   };
 }
 
@@ -38,7 +61,11 @@ app.get("/posts", (req, res) => {
 });
 
 app.post("/events", (req, res) => {
-  const event: PostCreatedEvent | CommentCreatedEvent = req.body;
+  const event:
+    | PostCreatedEvent
+    | CommentCreatedEvent
+    | CommentModeratedEvent
+    | CommentUpdatedEvent = req.body;
 
   if (event.type === "PostCreated") {
     const { id, title } = event.data;
@@ -50,11 +77,20 @@ app.post("/events", (req, res) => {
   }
 
   if (event.type === "CommentCreated") {
-    const { id, content, postId } = event.data;
+    const { id, content, postId, status } = event.data;
     posts[postId].comments.push({
       id,
+      postId,
       content,
+      status,
     });
+  }
+
+  if (event.type === "CommentUpdated") {
+    const { postId, status, id, content } = event.data;
+    const currentComment = posts[postId].comments.find((c) => c.id === id);
+    currentComment && (currentComment.status = status);
+    currentComment && (currentComment.content = content);
   }
 
   res.status(200);
