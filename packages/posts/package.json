@@ -1,6 +1,6 @@
 {
   "name": "@pnp-js/posts",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Posts service",
   "author": "“Petar Nenov",
   "homepage": "",
@@ -23,7 +23,7 @@
     "docker:push": "docker push petarnenov/blog-posts:latest"
   },
   "dependencies": {
-    "@pnp-js/event-bus": "^1.0.3",
+    "@pnp-js/event-bus": "^1.0.4",
     "axios": "^0.24.0",
     "cors": "^2.8.5",
     "express": "^4.17.1"
