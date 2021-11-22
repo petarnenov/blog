@@ -17,6 +17,12 @@ export interface PostCreatedEvent {
 }
 
 const posts: Posts = {};
+const handleEvents = (event: any) => {
+  if (event.type === "PostCreated") {
+    const { id, title } = event.data as CreatePost;
+    posts[id] = { id, title };
+  }
+};
 
 const app = express();
 app.use(cors());
@@ -25,14 +31,13 @@ app.use(express.json());
 app.post("/posts", async (req, res) => {
   const { title } = req.body as CreatePost;
   const id = randomBytes(10).toString("hex");
-  posts[id] = { id, title };
 
   await axios("http://localhost:3020/events", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     data: {
       type: "PostCreated",
-      data: posts[id],
+      data: { id, title },
     },
   });
 
@@ -41,10 +46,16 @@ app.post("/posts", async (req, res) => {
 
 app.post("/events", (req, res) => {
   const event = req.body;
+  handleEvents(event);
   res.status(200);
   res.end();
 });
 
-app.listen(3021, () => {
+app.listen(3021, async () => {
+  const events: { type: string; data: any }[] = await (
+    await axios.get("http://localhost:3020/events")
+  ).data;
+  events.forEach(handleEvents);
+
   console.log("Service posts start and listening on port 3021");
 });
