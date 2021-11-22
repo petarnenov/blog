@@ -1,5 +1,5 @@
-export const postServiceURL = "http://localhost:3021/posts";
-export const queryServiceURL = "http://localhost:3023/posts";
+export const postServiceURL = "http://posts.com/posts/create";
+export const queryServiceURL = "http://posts.com/posts";
 
 export interface SavePostData {
   title: string;

@@ -67,6 +67,8 @@ app.post("/events", (req, res) => {
     | CommentModeratedEvent
     | CommentUpdatedEvent = req.body;
 
+  console.log("event: ", JSON.stringify(event, null, 2));
+
   if (event.type === "PostCreated") {
     const { id, title } = event.data;
     posts[id] = {

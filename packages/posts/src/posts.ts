@@ -28,7 +28,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post("/posts", async (req, res) => {
+app.post("/posts/create", async (req, res) => {
   const { title } = req.body as CreatePost;
   const id = randomBytes(10).toString("hex");
 

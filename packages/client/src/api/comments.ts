@@ -1,4 +1,4 @@
-export const commentServiceURL = "http://localhost:3022/posts";
+export const commentServiceURL = "http://posts.com/posts";
 
 export interface SaveCommentData {
   id: string;
