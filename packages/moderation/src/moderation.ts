@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import axios from "axios";
-import { CommentCreatedEvent, PostCreatedEvent } from "../../query/src/query";
 
 export interface CommentModeratedEvent {
   type: "CommentModerated";
@@ -11,6 +10,30 @@ export interface CommentModeratedEvent {
     content: string;
     status: "pending" | "approved" | "rejected";
   };
+}
+
+export interface CommentCreatedEvent {
+  type: "CommentCreated";
+  data: {
+    id: string;
+    content: string;
+    postId: string;
+    status: "pending" | "approved" | "rejected";
+  };
+}
+export interface CommentUpdatedEvent {
+  type: "CommentUpdated";
+  data: {
+    id: string;
+    content: string;
+    postId: string;
+    status: "pending" | "approved" | "rejected";
+  };
+}
+
+export interface PostCreatedEvent {
+  type: "PostCreated";
+  data: { id: string; title: string };
 }
 
 const app = express();
@@ -25,7 +48,7 @@ app.post("/events", async (req, res) => {
     event.data.content.toLocaleLowerCase().match(/orange/g)
       ? (event.data.status = "rejected")
       : (event.data.status = "approved");
-    await axios("http://localhost:3020/events", {
+    await axios("http://event-bus-srv:3020/events", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

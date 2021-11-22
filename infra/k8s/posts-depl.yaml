@@ -15,3 +15,16 @@ spec:
       containers:
       - name: posts
         image: petarnenov/blog-posts   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-cluster-srv
+spec: 
+  selector:
+    app: posts
+  ports:
+  - name: posts
+    protocol: TCP
+    port: 3021
+    targetPort: 3021

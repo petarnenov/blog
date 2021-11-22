@@ -62,7 +62,7 @@ app.post("/posts/:id/comments", async (req, res) => {
   });
   comments[id] = currentComments;
 
-  await axios("http://localhost:3020/events", {
+  await axios("http://event-bus-srv:3020/events", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -84,7 +84,7 @@ app.post("/events", async (req, res) => {
     | PostCreatedEvent = req.body;
   if (event.type === "CommentModerated") {
     const { data } = event;
-    await axios("http://localhost:3020/events", {
+    await axios("http://event-bus-srv:3020/events", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

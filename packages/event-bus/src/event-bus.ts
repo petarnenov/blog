@@ -22,22 +22,24 @@ app.post("/events", async (req, res) => {
   const event = req.body;
   events.push(event);
 
-  await axios("http://localhost:3021/events", {
+  await axios("http://posts-cluster-srv:3021/events", {
     method: "POST",
     data: event,
   });
-  await axios("http://localhost:3022/events", {
+  await axios("http://comments-srv:3022/events", {
     method: "POST",
     data: event,
   });
-  await axios("http://localhost:3023/events", {
+  await axios("http://query-srv:3023/events", {
     method: "POST",
     data: event,
   });
-  await axios("http://localhost:3024/events", {
+  await axios("http://moderation-srv:3024/events", {
     method: "POST",
     data: event,
   });
+
+  console.log("received event: ", event);
 
   res.status(200);
   res.end();

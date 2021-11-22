@@ -32,7 +32,7 @@ app.post("/posts", async (req, res) => {
   const { title } = req.body as CreatePost;
   const id = randomBytes(10).toString("hex");
 
-  await axios("http://localhost:3020/events", {
+  await axios("http://event-bus-srv:3020/events", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     data: {
@@ -53,7 +53,7 @@ app.post("/events", (req, res) => {
 
 app.listen(3021, async () => {
   const events: { type: string; data: any }[] = await (
-    await axios.get("http://localhost:3020/events")
+    await axios.get("http://event-bus-srv:3020/events")
   ).data;
   events.forEach(handleEvents);
 
